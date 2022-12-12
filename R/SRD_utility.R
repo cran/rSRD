@@ -1,3 +1,23 @@
+#' @title utilsCalculateRank
+#' @name utilsCalculateRank
+#' @aliases utilsCalculateRank
+#' @export utilsCalculateRank
+#' @author Jochen Staudacher \email{jochen.staudacher@@hs-kempten.de}
+#' @description Calculates the ranking of a given column.
+#' @param df A DataFrame.
+#' @param nameCol The name of the column to be ranked. Note that this 
+#' parameter needs to be specified as there is no default value.
+#' @return Returns a new \code{df} that has an additional column with
+#' the rankings of the column specified by \code{nameCol}.
+#' @examples
+#' SRDInput <- data.frame(
+#' A=c(32, 52, 44, 44, 47),
+#' B=c(73, 75, 65, 76, 70),
+#' C=c(60, 59, 57, 55, 60),
+#' D=c(35, 24, 44, 83, 47),
+#' E=c(41, 52, 46, 50, 65))
+#' columnName <- "A"
+#' rSRD::utilsCalculateRank(SRDInput,columnName)
 utilsCalculateRank <- function(df,nameCol) {
   df <- df %>% tibble::add_column( !!(paste(nameCol,"Rank",sep="_")):=rank(df[nameCol]), .after=nameCol )
   return(df)
@@ -22,7 +42,7 @@ utilsCalculateRank <- function(df,nameCol) {
 #' E=c(41, 52, 46, 50, 65))
 #' nameCol <- "A"
 #' refCol <- "B"
-#'  for(i in names(SRDInput)){ SRDInput <- rSRD:::utilsCalculateRank(SRDInput,i)}
+#'  for(i in names(SRDInput)){ SRDInput <- rSRD::utilsCalculateRank(SRDInput,i)}
 #' rSRD::utilsCalculateDistance(SRDInput,nameCol,refCol)
 utilsCalculateDistance <- function(df,nameCol,refCol){
   firstCol <-df[paste(nameCol,"Rank",sep="_")]

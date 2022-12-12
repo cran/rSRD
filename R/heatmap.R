@@ -25,7 +25,7 @@ for(i in 1:length(cnames)) {
   }
 rownames(SRDs)<-colnames(df)
 SRDs<-t(SRDs)
-hmap<-heatmap(round(cor(SRDs),2), symm=TRUE, srtCol=45, verbose = FALSE)
+hmap<-heatmap(round(cor(SRDs),2), symm=TRUE, verbose = FALSE)
 invisible(hmap)
 }
 

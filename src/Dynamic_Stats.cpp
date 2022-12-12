@@ -1,5 +1,5 @@
 #include "Dynamic_Stats.h"
-#include <math.h>
+#include <cmath>
 
 Dynamic_Stats::Dynamic_Stats()
 {

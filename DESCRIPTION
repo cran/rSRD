@@ -1,7 +1,7 @@
 Package: rSRD
 Type: Package
 Title: Sum of Ranking Differences Statistical Test
-Version: 0.1.4
+Version: 0.1.5
 Authors@R: c(person("Jochen", "Staudacher", role = c("aut","cph","cre"),
                    email = "jochen.staudacher@hs-kempten.de"),
 			person(c("Balázs", "R."), "Sziklai", role = c("aut","cph"),
@@ -37,7 +37,7 @@ Imports: Rcpp, dplyr, janitor, tibble, ggplot2, stringr, methods,
         rlang, ggrepel
 SystemRequirements: C++20, Rtools (>= 4.2) for Windows
 NeedsCompilation: yes
-Packaged: 2022-12-08 20:03:44 UTC; Jochen
+Packaged: 2022-12-12 21:05:46 UTC; Jochen
 Author: Jochen Staudacher [aut, cph, cre],
   Balázs R. Sziklai [aut, cph],
   Linus Olsson [aut, cph],
@@ -45,4 +45,4 @@ Author: Jochen Staudacher [aut, cph, cre],
   Alexander Pothmann [ctb],
   Ali, Tugay Sen [ctb]
 Repository: CRAN
-Date/Publication: 2022-12-09 14:40:07 UTC
+Date/Publication: 2022-12-12 23:50:02 UTC

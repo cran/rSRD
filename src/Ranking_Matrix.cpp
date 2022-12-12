@@ -2,7 +2,7 @@
 #include <fstream>
 #include <string>
 #include <sstream>
-#include <math.h>
+#include <cmath>
 
 std::vector<std::vector<double>> Ranking_Matrix::transform_input_matrix(std::vector<std::vector<double>> data_matrix, int precision)
 {

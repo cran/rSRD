@@ -28,7 +28,7 @@ D=c(35, 24, 44, 83, 47),
 E=c(41, 52, 46, 50, 65))
 nameCol <- "A"
 refCol <- "B"
- for(i in names(SRDInput)){ SRDInput <- rSRD:::utilsCalculateRank(SRDInput,i)}
+ for(i in names(SRDInput)){ SRDInput <- rSRD::utilsCalculateRank(SRDInput,i)}
 rSRD::utilsCalculateDistance(SRDInput,nameCol,refCol)
 }
 \author{

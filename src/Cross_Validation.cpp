@@ -1,6 +1,6 @@
 #include "Cross_Validation.h"
 #include <stdlib.h>
-#include <math.h>
+#include <cmath>
 #include <algorithm>
 #include "Ranking_Matrix.h"
 #include "Manhattan_Dist.h"

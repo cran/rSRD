@@ -1,5 +1,5 @@
 #include "Distribution_Stats.h"
-#include <math.h>
+#include <cmath>
 
 Distribution_Stats::Distribution_Stats()
 {

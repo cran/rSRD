@@ -1,6 +1,6 @@
 #include "Manhattan_Dist.h"
 #include <stdlib.h>
-#include <math.h>
+#include <cmath>
 
 double Manhattan_Dist::manhattan(std::vector<double> first, std::vector<double> second)
 {
