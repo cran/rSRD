@@ -4,13 +4,15 @@
 \alias{plotHeatmapSRD}
 \title{plotHeatmapSRD}
 \usage{
-plotHeatmapSRD(df)
+plotHeatmapSRD(df, output_to_file = FALSE)
 }
 \arguments{
 \item{df}{A DataFrame.}
+
+\item{output_to_file}{Logical. If true, the distance matrix will be saved to the hard drive.}
 }
 \value{
-Returns a heatmap.
+Returns a heatmap and the corresponding distance matrix.
 }
 \description{
 Heatmap is generated based on the pairwise distance - measured in SRD - of the columns. 
@@ -27,5 +29,5 @@ E=c(41, 52, 46, 50, 65))
 plotHeatmapSRD(srdInput)
 }
 \author{
-Attila Gere \email{gereattilaphd@gmail.com}, Linus Olsson \email{linusmeol@gmail.com}
+Attila Gere \email{gereattilaphd@gmail.com}, Linus Olsson \email{linusmeol@gmail.com}, Jochen Staudacher \email{jochen.staudacher@hs-kempten.de}
 }

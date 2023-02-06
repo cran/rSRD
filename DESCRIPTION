@@ -1,7 +1,7 @@
 Package: rSRD
 Type: Package
 Title: Sum of Ranking Differences Statistical Test
-Version: 0.1.5
+Version: 0.1.6
 Authors@R: c(person("Jochen", "Staudacher", role = c("aut","cph","cre"),
                    email = "jochen.staudacher@hs-kempten.de"),
 			person(c("Balázs", "R."), "Sziklai", role = c("aut","cph"),
@@ -10,7 +10,9 @@ Authors@R: c(person("Jochen", "Staudacher", role = c("aut","cph","cre"),
 				    email = "linusmeol@gmail.com"),
 			person("Dennis", "Horn", role = "ctb"),		 
 			person("Alexander", "Pothmann", role = "ctb"),
-			person(c("Ali, Tugay"), "Sen", role = "ctb"))
+			person("Ali Tugay", "Sen", role = "ctb"),
+			person("Attila", "Gere", role = "ctb"),
+			person("Károly", "Hébeger", role = "ctb"))
 Maintainer: Jochen Staudacher <jochen.staudacher@hs-kempten.de>
 Description: We provide an implementation for Sum of Ranking Differences (SRD), 
     a novel statistical test introduced by Héberger (2010) 
@@ -34,15 +36,17 @@ Encoding: UTF-8
 RoxygenNote: 7.2.0
 LinkingTo: Rcpp
 Imports: Rcpp, dplyr, janitor, tibble, ggplot2, stringr, methods,
-        rlang, ggrepel
+        rlang, ggrepel, gplots
 SystemRequirements: C++20, Rtools (>= 4.2) for Windows
 NeedsCompilation: yes
-Packaged: 2022-12-12 21:05:46 UTC; Jochen
+Packaged: 2023-02-04 08:46:36 UTC; Jochen
 Author: Jochen Staudacher [aut, cph, cre],
   Balázs R. Sziklai [aut, cph],
   Linus Olsson [aut, cph],
   Dennis Horn [ctb],
   Alexander Pothmann [ctb],
-  Ali, Tugay Sen [ctb]
+  Ali Tugay Sen [ctb],
+  Attila Gere [ctb],
+  Károly Hébeger [ctb]
 Repository: CRAN
-Date/Publication: 2022-12-12 23:50:02 UTC
+Date/Publication: 2023-02-06 08:22:32 UTC

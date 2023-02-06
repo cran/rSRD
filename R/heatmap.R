@@ -1,11 +1,12 @@
 #' @name plotHeatmapSRD
 #' @title plotHeatmapSRD
 #' @aliases plotHeatmapSRD
-#' @author Attila Gere \email{gereattilaphd@@gmail.com}, Linus Olsson \email{linusmeol@@gmail.com}
+#' @author Attila Gere \email{gereattilaphd@@gmail.com}, Linus Olsson \email{linusmeol@@gmail.com}, Jochen Staudacher \email{jochen.staudacher@@hs-kempten.de}
 #' @description Heatmap is generated based on the pairwise distance - measured in SRD - of the columns. 
 #' Each column is set as reference once, then SRD values are calculated for the other columns. 
 #' @param df A DataFrame.
-#' @return Returns a heatmap.
+#' @param output_to_file Logical. If true, the distance matrix will be saved to the hard drive. 
+#' @return Returns a heatmap and the corresponding distance matrix.
 #' @export plotHeatmapSRD
 #' @examples 
 #' srdInput <- data.frame(
@@ -16,7 +17,7 @@
 #' E=c(41, 52, 46, 50, 65))
 #' 
 #' plotHeatmapSRD(srdInput)
-plotHeatmapSRD <- function (df){
+plotHeatmapSRD <- function (df, output_to_file=FALSE){
 cnames<-colnames(df)
 SRDs<-matrix(ncol=length(cnames)-1, nrow=length(cnames))
 for(i in 1:length(cnames)) { 
@@ -25,7 +26,28 @@ for(i in 1:length(cnames)) {
   }
 rownames(SRDs)<-colnames(df)
 SRDs<-t(SRDs)
-hmap<-heatmap(round(cor(SRDs),2), symm=TRUE, verbose = FALSE)
+m<-matrix(ncol=ncol(SRDs),nrow=ncol(SRDs))
+diag(m)<-0
+m[upper.tri(m)]<-SRDs[upper.tri(SRDs)]
+m[lower.tri(m)]<-SRDs[lower.tri(SRDs, TRUE)]
+m<-m/utilsMaxSRD(nrow(df))
+colnames(m)<-colnames(df)
+rownames(m)<-colnames(df)
+hmap<-heatmap.2(m,
+                distfun = function (x) {as.dist(x)},
+                symm = TRUE,
+                dendrogram = "both",
+                srtCol = 45,
+                key = FALSE,
+                trace = "none",
+                margins = c(10, 10),
+                symkey = TRUE,
+                col = utilsColorPalette)
 invisible(hmap)
+if (output_to_file==TRUE){
+  dist_reordered<-m[rev(hmap$rowInd),hmap$colInd]
+  write.table(m,"SRDdistanceMatrix.csv",sep=";", dec='.',col.names=NA)
+  } 
 }
+
 
