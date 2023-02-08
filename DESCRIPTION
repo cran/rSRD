@@ -1,7 +1,7 @@
 Package: rSRD
 Type: Package
 Title: Sum of Ranking Differences Statistical Test
-Version: 0.1.6
+Version: 0.1.7
 Authors@R: c(person("Jochen", "Staudacher", role = c("aut","cph","cre"),
                    email = "jochen.staudacher@hs-kempten.de"),
 			person(c("Balázs", "R."), "Sziklai", role = c("aut","cph"),
@@ -33,13 +33,13 @@ Description: We provide an implementation for Sum of Ranking Differences (SRD),
     of the SRD scores, validation options, input preprocessing and plotting tools. 
 License: GPL-3
 Encoding: UTF-8
-RoxygenNote: 7.2.0
 LinkingTo: Rcpp
 Imports: Rcpp, dplyr, janitor, tibble, ggplot2, stringr, methods,
         rlang, ggrepel, gplots
-SystemRequirements: C++20, Rtools (>= 4.2) for Windows
+SystemRequirements: C++17, Rtools (>= 4.2) for Windows
 NeedsCompilation: yes
-Packaged: 2023-02-04 08:46:36 UTC; Jochen
+RoxygenNote: 7.2.0
+Packaged: 2023-02-07 09:12:32 UTC; Jochen
 Author: Jochen Staudacher [aut, cph, cre],
   Balázs R. Sziklai [aut, cph],
   Linus Olsson [aut, cph],
@@ -49,4 +49,4 @@ Author: Jochen Staudacher [aut, cph, cre],
   Attila Gere [ctb],
   Károly Hébeger [ctb]
 Repository: CRAN
-Date/Publication: 2023-02-06 08:22:32 UTC
+Date/Publication: 2023-02-08 08:02:31 UTC
