@@ -708,8 +708,12 @@ std::vector<int> Cross_Validation::Alpaydin(std::vector<double>& test_statistics
             alpaydin_denominator += alpaydin_s[i];
         }
 
+		double alpaydin_formula = 0;
 
-        double alpaydin_formula = alpaydin_numerator / (2*alpaydin_denominator);
+		if (alpaydin_denominator!=0)
+		{
+			alpaydin_formula = alpaydin_numerator / (2*alpaydin_denominator);
+		}
 
         test_statistics.push_back(alpaydin_formula);
     }
@@ -1157,7 +1161,12 @@ std::vector<int> Cross_Validation::Dietterich(std::vector<double>& test_statisti
                
         }
 
-        double dietterich_formula = dietterich_numerator / std::sqrt(dietterich_denominator/k_fold);
+        double dietterich_formula = 0;
+
+		if (dietterich_denominator != 0)
+		{
+			dietterich_formula = dietterich_numerator / std::sqrt(dietterich_denominator/k_fold);
+		}
 
         test_statistics.push_back(dietterich_formula);
     }

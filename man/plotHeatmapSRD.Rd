@@ -4,12 +4,14 @@
 \alias{plotHeatmapSRD}
 \title{plotHeatmapSRD}
 \usage{
-plotHeatmapSRD(df, output_to_file = FALSE)
+plotHeatmapSRD(df, output_to_file = FALSE, color = utilsColorPalette)
 }
 \arguments{
 \item{df}{A DataFrame.}
 
 \item{output_to_file}{Logical. If true, the distance matrix will be saved to the hard drive.}
+
+\item{color}{Vector of colors used for the image. Defaults to colors \code{utilsColorPalette}.}
 }
 \value{
 Returns a heatmap and the corresponding distance matrix.
@@ -27,6 +29,11 @@ D=c(35, 24, 44, 83, 47),
 E=c(41, 52, 46, 50, 65))
 
 plotHeatmapSRD(srdInput)
+
+mycolors<- c("#e3f2fd", "#bbdefb", "#90caf9","#64b5f6","#42a5f5",
+             "#2196f3","#1e88e5","#1976d2","#1565c0","#0d47a1")
+plotHeatmapSRD(srdInput, color=mycolors)
+
 }
 \author{
 Attila Gere \email{gereattilaphd@gmail.com}, Linus Olsson \email{linusmeol@gmail.com}, Jochen Staudacher \email{jochen.staudacher@hs-kempten.de}

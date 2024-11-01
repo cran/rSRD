@@ -27,8 +27,8 @@ utilsCalculateRank <- function(df,nameCol) {
 #' @name utilsCalculateDistance
 #' @aliases utilsCalculateDistance
 #' @export utilsCalculateDistance
-#' @author Ali Tugay Sen
-#' @description Calculates the Manhattan-distance between two rankings and inserts it into the DataFrame after the first column.
+#' @author Ali Tugay Sen, Jochen Staudacher \email{jochen.staudacher@@hs-kempten.de}
+#' @description Calculates the distance of two rankings in $L_1$ norm and inserts the result after the first.
 #' @param df A DataFrame.
 #' @param nameCol The current Column of the iteration.
 #' @param refCol The reference Column of the dataFrame.
@@ -42,15 +42,11 @@ utilsCalculateRank <- function(df,nameCol) {
 #' E=c(41, 52, 46, 50, 65))
 #' nameCol <- "A"
 #' refCol <- "B"
-#'  for(i in names(SRDInput)){ SRDInput <- rSRD::utilsCalculateRank(SRDInput,i)}
 #' rSRD::utilsCalculateDistance(SRDInput,nameCol,refCol)
 utilsCalculateDistance <- function(df,nameCol,refCol){
-  firstCol <-df[paste(nameCol,"Rank",sep="_")]
-  secondCol <- df[paste(refCol,"Rank",sep="_")]
-  absdiffCol <- abs(firstCol-secondCol)
-  val <- as.numeric(unlist(absdiffCol))
+  val <- as.numeric(unlist(abs(rank(df[nameCol])-rank(df[refCol]))))
   newColumnName <- paste(nameCol,"Distance",sep="_")
-  df <- df %>% tibble::add_column(!!(newColumnName):=val, .after=paste(nameCol,"Rank",sep="_") )
+  df <- df %>% tibble::add_column(!!(newColumnName):=val, .after=nameCol)
   return(df)
 }
 
@@ -58,7 +54,7 @@ utilsCalculateDistance <- function(df,nameCol,refCol){
 #' @name utilsDetailedSRD
 #' @aliases utilsDetailedSRD
 #' @export utilsDetailedSRD
-#' @author Ali Tugay Sen
+#' @author Ali Tugay Sen, Jochen Staudacher \email{jochen.staudacher@@hs-kempten.de}
 #' @description Detailed calculation of the SRD values including the computation of the ranking transformation. 
 #' Unless there is a column specified with referenceCol the last column will always taken as the reference.
 #' @param df A DataFrame.
@@ -74,6 +70,16 @@ utilsCalculateDistance <- function(df,nameCol,refCol){
 #' E=c(41, 52, 46, 50, 65))
 #' rSRD::utilsDetailedSRD(SRDInput)
 utilsDetailedSRD <- function (df,referenceCol,createRefCol=function(){}){
+  #
+  internalCalculateDistance <- function(datafr,nameCol,refCol){
+	  firstCol <-datafr[paste(nameCol,"Rank",sep="_")]
+	  secondCol <- datafr[paste(refCol,"Rank",sep="_")]
+	  absdiffCol <- abs(firstCol-secondCol)
+	  val <- as.numeric(unlist(absdiffCol))
+	  newColumnName <- paste(nameCol,"Distance",sep="_")
+	  datafr <- datafr %>% tibble::add_column(!!(newColumnName):=val, .after=paste(nameCol,"Rank",sep="_") )
+	  return(datafr)
+  }
   # referenceCol is a existing Column in the dataframe that will be taken as the reference. Normally it will be always the last one
   origin_df_names <-names(df)
   
@@ -90,7 +96,7 @@ utilsDetailedSRD <- function (df,referenceCol,createRefCol=function(){}){
   refCol <- tail(origin_df_names, n=1)
   
   for(i in origin_df_names){ df <- utilsCalculateRank(df,i)}
-  for( i in  origin_df_names[1:length(origin_df_names)-1]){ df <- utilsCalculateDistance(df,i,refCol)}
+  for( i in  origin_df_names[1:length(origin_df_names)-1]){ df <- internalCalculateDistance(df,i,refCol)}
   sumDF <- df  %>% janitor::adorn_totals(,,, "-", contains("_Distance")) %>% janitor::untabyl()
   return(sumDF)
 }
@@ -99,10 +105,11 @@ utilsDetailedSRD <- function (df,referenceCol,createRefCol=function(){}){
 #' @name utilsDetailedSRDNoChars
 #' @aliases utilsDetailedSRDNoChars
 #' @export utilsDetailedSRDNoChars
-#' @author Ali Tugay Sen
+#' @author Ali Tugay Sen, Jochen Staudacher \email{jochen.staudacher@@hs-kempten.de}
 #' @description Detailed calculation of the SRD values including the computation of the ranking transformation. 
 #' Unless there is a column specified with referenceCol the last column will always taken as the reference. 
-#' In this variant unused variables will not be converted to chars.
+#' This variant differs from \code{utilsDetailedSRD} in that non-numeric columns will not be converted to chars, 
+#' i.e. the data types of non-numeric columns will be preserved in the output.
 #' @param df A DataFrame.
 #' @param referenceCol Optional. A string that contains a column of \code{df} which will be used as the reference column.
 #' @param createRefCol Optional. Can be max, min, median, mean. Creates a new Column based on the existing \code{df} and attaches it to  \code{df} as the reference Column.
@@ -116,6 +123,16 @@ utilsDetailedSRD <- function (df,referenceCol,createRefCol=function(){}){
 #' E=c(41, 52, 46, 50, 65))
 #' rSRD::utilsDetailedSRDNoChars(SRDInput)
 utilsDetailedSRDNoChars <- function (df,referenceCol,createRefCol=function(){}){
+  #
+  internalCalculateDistanceNoChars <- function(datafr,nameCol,refCol){
+    firstCol <-datafr[paste(nameCol,"Rank",sep="_")]
+    secondCol <- datafr[paste(refCol,"Rank",sep="_")]
+    absdiffCol <- abs(firstCol-secondCol)
+    val <- as.numeric(unlist(absdiffCol))
+    newColumnName <- paste(nameCol,"Distance",sep="_")
+    datafr <- datafr %>% tibble::add_column(!!(newColumnName):=val, .after=paste(nameCol,"Rank",sep="_") )
+    return(datafr)
+  }
   # referenceCol is a existing Column in the dataframe that will be taken as the reference. Normally it will be always the last one
   origin_df_names <-names(df)
   
@@ -132,7 +149,7 @@ utilsDetailedSRDNoChars <- function (df,referenceCol,createRefCol=function(){}){
   refCol <- tail(origin_df_names, n=1)
   
   for(i in origin_df_names){ df <- utilsCalculateRank(df,i)}
-  for( i in  origin_df_names[1:length(origin_df_names)-1]){ df <- utilsCalculateDistance(df,i,refCol)}
+  for( i in  origin_df_names[1:length(origin_df_names)-1]){ df <- internalCalculateDistanceNoChars(df,i,refCol)}
   sumDF <- df  %>% janitor::adorn_totals(,,, name = NA, fill=NA, contains("_Distance")) %>% janitor::untabyl() #removed as it converts the unused variables to char
   #return(sumDF) - changed to df
   #a<-c() # needed to store the sums
@@ -263,7 +280,7 @@ calculateCrossValidation <- function(data_matrix,  method = "Wilcoxon", number_o
   
   for (i in (1:length(test_statistics)))
   {
-    if (number_of_folds < 5 | number_of_folds>10)
+    if (number_of_folds < 5 | number_of_folds>10 | is.na(test_statistics[i]))
     {
       statSignifance[i] = notAvailString
     }

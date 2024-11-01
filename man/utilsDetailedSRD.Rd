@@ -35,5 +35,5 @@ E=c(41, 52, 46, 50, 65))
 rSRD::utilsDetailedSRD(SRDInput)
 }
 \author{
-Ali Tugay Sen
+Ali Tugay Sen, Jochen Staudacher \email{jochen.staudacher@hs-kempten.de}
 }

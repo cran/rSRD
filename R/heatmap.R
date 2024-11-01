@@ -6,6 +6,7 @@
 #' Each column is set as reference once, then SRD values are calculated for the other columns. 
 #' @param df A DataFrame.
 #' @param output_to_file Logical. If true, the distance matrix will be saved to the hard drive. 
+#' @param color Vector of colors used for the image. Defaults to colors \code{utilsColorPalette}.
 #' @return Returns a heatmap and the corresponding distance matrix.
 #' @export plotHeatmapSRD
 #' @examples 
@@ -17,7 +18,12 @@
 #' E=c(41, 52, 46, 50, 65))
 #' 
 #' plotHeatmapSRD(srdInput)
-plotHeatmapSRD <- function (df, output_to_file=FALSE){
+#' 
+#' mycolors<- c("#e3f2fd", "#bbdefb", "#90caf9","#64b5f6","#42a5f5",
+#'              "#2196f3","#1e88e5","#1976d2","#1565c0","#0d47a1")
+#' plotHeatmapSRD(srdInput, color=mycolors)
+#'
+plotHeatmapSRD <- function (df, output_to_file=FALSE, color=utilsColorPalette){
 cnames<-colnames(df)
 SRDs<-matrix(ncol=length(cnames)-1, nrow=length(cnames))
 for(i in 1:length(cnames)) { 
@@ -42,7 +48,7 @@ hmap<-heatmap.2(m,
                 trace = "none",
                 margins = c(10, 10),
                 symkey = TRUE,
-                col = utilsColorPalette)
+                col = color)
 invisible(hmap)
 if (output_to_file==TRUE){
   dist_reordered<-m[rev(hmap$rowInd),hmap$colInd]

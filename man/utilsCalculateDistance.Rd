@@ -17,7 +17,7 @@ utilsCalculateDistance(df, nameCol, refCol)
 Returns a new \code{df} that has a Distance Column based on the \code{nameCol}.
 }
 \description{
-Calculates the Manhattan-distance between two rankings and inserts it into the DataFrame after the first column.
+Calculates the distance of two rankings in $L_1$ norm and inserts the result after the first.
 }
 \examples{
 SRDInput <- data.frame(
@@ -28,9 +28,8 @@ D=c(35, 24, 44, 83, 47),
 E=c(41, 52, 46, 50, 65))
 nameCol <- "A"
 refCol <- "B"
- for(i in names(SRDInput)){ SRDInput <- rSRD::utilsCalculateRank(SRDInput,i)}
 rSRD::utilsCalculateDistance(SRDInput,nameCol,refCol)
 }
 \author{
-Ali Tugay Sen
+Ali Tugay Sen, Jochen Staudacher \email{jochen.staudacher@hs-kempten.de}
 }

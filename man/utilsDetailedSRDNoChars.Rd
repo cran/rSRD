@@ -24,7 +24,8 @@ Returns a new DataFrame that shows the detailed SRD computation (ranking transfo
 \description{
 Detailed calculation of the SRD values including the computation of the ranking transformation. 
 Unless there is a column specified with referenceCol the last column will always taken as the reference. 
-In this variant unused variables will not be converted to chars.
+This variant differs from \code{utilsDetailedSRD} in that non-numeric columns will not be converted to chars, 
+i.e. the data types of non-numeric columns will be preserved in the output.
 }
 \examples{
 SRDInput <- data.frame(
@@ -36,5 +37,5 @@ E=c(41, 52, 46, 50, 65))
 rSRD::utilsDetailedSRDNoChars(SRDInput)
 }
 \author{
-Ali Tugay Sen
+Ali Tugay Sen, Jochen Staudacher \email{jochen.staudacher@hs-kempten.de}
 }
